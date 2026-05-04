@@ -102,7 +102,7 @@ const COMMANDS = {
 };
 
 async function cmdAyuda(chatId) {
-    await sendTelegram(chatId, `🤖 *COTERENA Bot — Comandos disponibles*
+    await sendTelegram(chatId, `🤖 *UniFi Bot — Comandos disponibles*
 
 /estado — Estado de todos los dispositivos UniFi
 /wan — Estado de la conexión WAN e internet
@@ -151,7 +151,7 @@ async function cmdEstado(chatId) {
         const stateLabel = { 0: "❌ Desconectado", 1: "✅ Conectado", 2: "🔄 Pendiente", 4: "⬆️ Actualizando", 5: "⚙️ Provisionando" };
 
         const time = new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" });
-        let lines = [`🖥️ *COTERENA | Estado de dispositivos*\n⏰ ${time}\n`];
+        let lines = [`🖥️ *UniFi | Estado de dispositivos*\n⏰ ${time}\n`];
 
         for (const d of devices) {
             const tipo   = typeLabel[d.type]   || `📦 ${esc(d.type || "?")}`;
@@ -192,7 +192,7 @@ async function cmdWan(chatId) {
         const lan  = health.find(s => s.subsystem === 'lan');
         const wlan = health.find(s => s.subsystem === 'wlan');
 
-        let lines = [`🌐 *COTERENA | Estado de red*\n⏰ ${time}\n`];
+        let lines = [`🌐 *UniFi | Estado de red*\n⏰ ${time}\n`];
 
         if (wan) {
             const status = wan.status === 'ok' ? '🟢 Conectado' : '🔴 Desconectado';
@@ -235,10 +235,10 @@ async function cmdAlertas(chatId) {
         const time   = new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" });
 
         if (!alarms.length) {
-            return sendTelegram(chatId, `✅ *COTERENA | Sin alertas activas*\n\nNo hay ninguna alerta pendiente.\n⏰ ${time}`);
+            return sendTelegram(chatId, `✅ *UniFi | Sin alertas activas*\n\nNo hay ninguna alerta pendiente.\n⏰ ${time}`);
         }
 
-        let lines = [`🚨 *COTERENA | Alertas activas* (${alarms.length})\n⏰ ${time}\n`];
+        let lines = [`🚨 *UniFi | Alertas activas* (${alarms.length})\n⏰ ${time}\n`];
 
         for (const a of alarms.slice(0, 10)) {
             const fecha = a.datetime
@@ -389,7 +389,7 @@ function formatMessage(data) {
     const time = new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" });
 
     if (typeof data === "string") {
-        return `📡 *COTERENA | TEST*\n\n📢 ${esc(data)}\n⏰ ${time}`;
+        return `📡 *UniFi | TEST*\n\n📢 ${esc(data)}\n⏰ ${time}`;
     }
 
     if (data?.name) {
@@ -398,7 +398,7 @@ function formatMessage(data) {
         const event = EVENT_MAP[data.name] || { icon: "📌", area: "General", texto: data.name };
 
         let lines = [];
-        lines.push(`${sev.emoji} *COTERENA | ${esc(sev.label)}*`);
+        lines.push(`${sev.emoji} *UniFi | ${esc(sev.label)}*`);
         lines.push(``);
 
         if (data.customContent) {
@@ -431,17 +431,17 @@ function formatMessage(data) {
     }
 
     if (data?.meta?.msg) {
-        return `⚠️ *COTERENA | EVENTO*\n\n📢 ${esc(data.meta.msg)}\n⏰ ${time}`;
+        return `⚠️ *UniFi | EVENTO*\n\n📢 ${esc(data.meta.msg)}\n⏰ ${time}`;
     }
 
-    return `📌 *COTERENA | EVENTO RAW*\n\n\`\`\`\n${JSON.stringify(data, null, 2).slice(0, 3000)}\n\`\`\`\n⏰ ${time}`;
+    return `📌 *UniFi | EVENTO RAW*\n\n\`\`\`\n${JSON.stringify(data, null, 2).slice(0, 3000)}\n\`\`\`\n⏰ ${time}`;
 }
 
 // =====================
 // START
 // =====================
 app.listen(PORT, () => {
-    console.log(`🚀 COTERENA webhook activo en puerto ${PORT}`);
+    console.log(`🚀 UniFi webhook activo en puerto ${PORT}`);
     console.log(`🖥️  UDM Pro: ${UNIFI_HOST} | Site: ${UNIFI_SITE}`);
     if (!UNIFI_API_KEY) console.warn("⚠️  UNIFI_API_KEY no configurada");
     startPolling();
