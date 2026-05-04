@@ -130,7 +130,7 @@ docker logs -f unifi-webhook
 Deberías ver:
 
 ```
-🚀 COTERENA webhook activo en puerto 3000
+🚀 UNIFI webhook activo en puerto 3000
 🖥️  UDM Pro: https://192.168.1.1 | Site: default
 🔄 Iniciando polling de Telegram...
 ```
