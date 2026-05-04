@@ -1,0 +1,14 @@
+services:
+  unifi-webhook:
+    build: .
+    container_name: unifi-telegram-bot
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      TELEGRAM_TOKEN: "TU_TOKEN_DE_TELEGRAM"
+      CHAT_ID: "TU_CHAT_ID"
+      SECRET: "TU_PASSWORD"
+      UNIFI_HOST: "URL_or_IP"
+      UNIFI_API_KEY: "TU_UNIFI_API_KEY"
+      UNIFI_SITE: "default"
